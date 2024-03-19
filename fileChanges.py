@@ -9,6 +9,7 @@ import os
 import time
 import logging
 
+# Fixed global variables used throughout the code
 source_dir = "/Users/jeettevani/Downloads"
 dest_dir = "/Users/jeettevani/Desktop"
 
