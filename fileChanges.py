@@ -31,7 +31,7 @@ def fileTimeExisted(name):
     actualCurrentTime = currentTimeSinceEpoch - creationTime
     for i in usual_extensions:
         if name.endswith(i) or name.endswith(i.upper()):
-            if (actualCurrentTime > 1):
+            if (actualCurrentTime > hours_in_seconds):
                 send2trash(destination)  
 
 # Moves files from source directory (Downloads) to destination
