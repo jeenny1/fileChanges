@@ -22,6 +22,7 @@ usual_extensions = [".jpg", ".jpeg", ".jpe", ".jif", ".jfif", ".jfi", ".png",
                     ".ico", ".doc", ".docx", ".odt", ".pdf", ".xls", ".xlsx", 
                     ".ppt", ".pptx"]
 
+# Deletes usual_extensions files on Desktop after 24 hours
 def fileTimeExisted(name):
     destination = dest_dir + "/" + name
     creationTime = os.path.getctime(destination)
@@ -32,6 +33,8 @@ def fileTimeExisted(name):
             if (actualCurrentTime > 1):
                 send2trash(destination)  
 
+# Moves files from source directory (Downloads) to destination
+# directory (Desktop)
 def fileMoving(name):
     for i in usual_extensions:
         if name.endswith(i) or name.endswith(i.upper()):
@@ -39,7 +42,7 @@ def fileMoving(name):
             destination = dest_dir + "/" + name
             Path(starting).rename(destination)
 
-
+# Keeps track of all movement in the source directory
 class movingDirectories(LoggingEventHandler):
      def on_modified(self, event):
         with os.scandir(source_dir) as entries:
@@ -47,6 +50,7 @@ class movingDirectories(LoggingEventHandler):
                 name = entry.name
                 fileMoving(name)
 
+# Executes the program
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
@@ -61,6 +65,8 @@ if __name__ == "__main__":
     try:
         while True:
             time.sleep(10)
+            # Runs throughout the program regardless of
+            # what occurs in the source directory
             with os.scandir(dest_dir) as entries:
                 for entry in entries:
                     name = entry.name
